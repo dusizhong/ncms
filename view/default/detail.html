@@ -1,0 +1,18 @@
+<%- include('header.html'); %>
+
+<main role="main" class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="mt-4 mb-5">
+        <h3><%= article.title %></h3>
+        <p class="text-black-50"><%= article.createdAt.substring(0,10) %> by <a href="#"><%= article.author %></a></p>
+        <p><%- article.content -%></p>
+      </div>
+    </div>
+
+    <%- include('aside.html'); %>
+
+  </div>
+</main>
+
+<%- include('footer.html'); %>

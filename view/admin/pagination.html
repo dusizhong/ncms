@@ -1,0 +1,11 @@
+<!-- pagination -->
+
+<div class="d-flex justify-content-center flex-nowrap align-items-center mt-3">
+
+  <button class="btn btn-sm btn-primary mr-3" type="button" onclick="nextPage(<%= data.page-1 %>)" <%- data.first? 'disabled':'' %>>Previous</button>
+
+  <input type="text" class="form-control form-control-sm text-center" style="width:60px" id="goPage" value="<%= data.page %>"><span class="pl-2"> / <%= data.pages %></span>
+
+  <button class="btn btn-sm btn-primary ml-3" type="button" onclick="nextPage(<%= Number(data.page)+1 %>)" <%- data.last? 'disabled':'' %>>Next</button>
+
+</div>

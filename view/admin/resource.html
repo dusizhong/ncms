@@ -1,0 +1,173 @@
+<%- include('header.html'); -%>
+
+<div class="container-fluid">
+  <div class="row">
+
+    <%- include('sidebar.html'); -%>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 mb-5">
+      <h1 class="h3 pt-3 pb-3 mb-3 border-bottom">Resource</h1>
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+        <input type="file" class="mb-3" id="myFile" accept="image/jpeg,image/png,image/gif">
+        <form action="/admin/resource">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control form-control-sm" id="keyword" name="keyword" placeholder="keyword">
+            <div class="input-group-append">
+              <button class="btn btn-sm btn-outline-secondary" type="submit">Search</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr class="align-items-center">
+              <th scope="col" class="text-center">#</th>
+              <th scope="col">Name</th>
+              <th scope="col" class="text-center">Type</th>
+              <th scope="col" class="text-center">Size</th>
+              <th scope="col">Url</th>
+              <th scope="col">CreatedAt</th>
+              <th scope="col">Operate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(let i=0; i< data.records.length; i++) { %>
+            <tr class="align-items-center">
+              <th scope="row" class="text-center"><%= data.records[i].id %></th>
+              <td><%= data.records[i].name %></td>
+              <td class="text-center"><%= data.records[i].type %></td>
+              <td class="text-center"><%= data.records[i].size %></td>
+              <td><a href="<%= data.records[i].url %>" target="_blank"><%= data.records[i].url %></a></td>
+              <td class="text-nowrap"><%= data.records[i].createdAt %></td>
+              <td class="text-nowrap">
+                <button type="button" class="btn btn-xs btn-outline-danger" data-toggle="modal" data-target="#delModal" onclick="sel(<%= data.records[i].id %>)">Del</button>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+
+      <%- include('pagination.html'); -%>
+
+    </main>
+  </div>
+
+  <div id="editModal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Editor</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <form id="editForm" action="/admin/category/create" method="POST">
+          <div class="modal-body">
+            <input type="hidden" class="form-control" id="id" name="id">
+            <div class="form-group">
+              <label for="sortId">SortId *</label>
+              <input type="text" class="form-control" id="sortId" name="sortId" placeholder="sortId" required>
+            </div>
+            <div class="form-group">
+              <label for="name">Name *</label>
+              <input type="text" class="form-control" id="name" name="name" placeholder="name" required>
+            </div>
+            <div class="form-group">
+              <label for="alias">Alias</label>
+              <input type="text" class="form-control" id="alias" name="alias" placeholder="alias">
+            </div>
+            <div class="form-group">
+              <label for="url">Url</label>
+              <input type="text" class="form-control" id="url" name="url" placeholder="url">
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" id="enabled" name="enabled" value="1"> Enabled</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-sm btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- del modal -->
+  <div id="delModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Warning</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <span>Are you sure&hellip;</span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-sm btn-danger" onclick="del()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- message modal -->
+  <div class="modal fade" id="messageModal" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">Message</div>
+        <div class="modal-body"><h5>success!</h5></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%- include('script.html'); -%>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#keyword").val(getQueryString('keyword'));
+  })
+  // upload
+  $("#myFile").change(function(event) {
+    event.preventDefault();
+    var file = $('#myFile')[0].files[0];
+    var form = new FormData($("#editForm")[0]);
+    form.append('file', file);
+    $.post({
+      url: window.location.href.split("?")[0] + '/upload',
+      data: form,
+      cache: false,
+      processData: false,
+      contentType: false,
+      success: function(data) {
+        window.location.reload();
+      },
+      error: function(e) {
+        console.log(e);
+      }
+    })
+  })
+  // del
+  var selId = null;
+  function sel(id) {
+    selId = id;
+  }
+  function del() {
+    $.post({
+      url: window.location.href.split("?")[0] + '/del',
+      data: { 'id': selId },
+      success: function(data) {
+        $('#delModal').modal('hide');
+        $('#messageModal').modal('show');
+        setTimeout(function() { $('#messageModal').modal('hide') }, 2000);
+        window.location.reload();
+      }
+    })
+  }
+</script>
+
+<%- include('footer.html'); -%>

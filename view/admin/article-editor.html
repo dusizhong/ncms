@@ -1,0 +1,138 @@
+<%- include('header.html'); -%>
+
+<div class="container-fluid">
+  <div class="row">
+
+    <%- include('sidebar.html'); -%>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 mb-5">
+      <h1 class="h3 pt-3 pb-3 mb-3 border-bottom">Article Editor</h1> 
+
+      <form id="editForm" action="/admin/article/editor" method="POST">
+        <input type="hidden" class="form-control" id="id" name="id" value="<%=article.id%>">
+        <div class="form-group">
+          <label for="title">Title *</label>
+          <input type="text" class="form-control" id="title" name="title" value="<%=article.title%>" required>
+        </div>
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select class="form-control" id="category" name="category">
+            <option value=""></option>
+            <% for(let i=0; i< categories.length; i++) { %>
+            <option value="<%=categories[i].name%>"><%= categories[i].alias? categories[i].alias : categories[i].name %></option>
+            <% } %>
+          </select>
+          <span id="category1" hidden="hidden"><%=article.category%></span>
+        </div>
+        <div class="form-group">
+          <label for="title">Author</label>
+          <input type="text" class="form-control" id="author" name="author" value="<%=article.author%>">
+        </div>
+        <div class="form-group">
+          <label for="intro">Intro</label>
+          <textarea class="form-control" id="intro" name="intro"><%=article.intro%></textarea>
+        </div>
+        <div class="form-group">
+          <label for="upload">Pic</label>
+          <input type="file" class="form-control-file" id="upload" name="upload" accept="image/*">
+          <input type="hidden" id="pic" name="pic">
+          <img class="img-responsive img-rounded mt-3" id="preview" src="<%=article.pic? article.pic : '/assets/img/nopic.png'%>" alt="preview">
+        </div>
+        <div class="form-group">
+          <label for="content">Content</label>
+          <textarea id="content" name="content"><%=article.content%></textarea>
+        </div>
+        <div class="form-group">
+          <label for="tagPicker">Tag</label>
+          <select class="selectpicker form-control" id="tagPicker" name="tagPicker" multiple data-live-search="true">
+            <% for(let j=0; j< tags.length; j++) { %>
+            <option value="<%=tags[j].name%>"><%=tags[j].name%></option>
+            <% } %>                           
+          </select>
+          <input type="hidden" id="tag" name="tag" value="<%=article.tag%>">
+        </div>
+        <div class="form-group">
+          <label for="recommends">Recommends</label>
+          <select class="form-control" id="recommends" name="recommends">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+          <span id="recommends1" hidden="hidden"><%=article.recommends%></span>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" id="enabled" name="enabled" value="1"> Enabled</label>
+          <span id="enabled1" hidden="hidden"><%=article.enabled%></span>
+        </div>
+        <div class="d-flex justify-content-center mb-4">
+          <button type="button" class="btn btn-light mr-3" onclick="javascript:window.location.href='/admin/article'">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+
+    </main>
+  </div>
+</div>
+
+<%- include('script.html'); -%>
+
+<script src="/assets/js/bootstrap-select.min.js"></script>
+<!-- <script src="/assets/js/defaults-zh_CN.min.js"></script> -->
+<script src='/assets/tinymce/tinymce.min.js'></script>
+<script type="text/javascript">
+  // page load
+  $(document).ready(function() {
+    // set category
+    var s = document.getElementById("category1").innerHTML;
+    $("#category").val(s);
+    // set recommends
+    var r = document.getElementById("recommends1").innerHTML;
+    $("#recommends").val(r);
+    // set pic
+    $("#pic").val('<%= article.pic %>');
+    // set tag picker
+    $("#tagPicker").val($("#tag").val().split(','));
+    // set checkbox
+    var e = document.getElementById("enabled1").innerHTML;
+    if(e ==1) $("#enabled").prop('checked', true);
+    else $("#enabled").prop('checked', false);
+  })
+  // tag picker
+  $("#tagPicker").change(function() {
+    $("#tag").val($(this).val().toString());
+  })
+  // tinymce init
+  tinymce.init({
+    selector: '#content',
+    // language: 'zh_CN',
+    height: 1000,
+    menubar: false,
+    plugins: 'lists, advlist, table, link, media, image, code, preview, wordcount, autosave',
+    toolbar: 'undo redo | fontsizeselect | bold italic underline forecolor backcolor | alignleft aligncenter alignright | bullist numlist table | link media image | code preview restoredraft',
+    image_class_list: [{title:'img-fluid', value:'img-fluid'}],
+    images_upload_url: window.location.href.split("?")[0] + '/upload'
+  })
+  // upload main pic
+  $("#upload").change(function(event) {
+    event.preventDefault();
+    var file = $('#upload')[0].files[0];
+    var form = new FormData($("#editForm")[0]);
+    form.append('file', file);
+    $.post({
+      url: window.location.href.split("?")[0] + '/upload',
+      data: form,
+      cache: false,
+      processData: false,
+      contentType: false,
+      success: function(data) {
+        $('#pic').val(data.location);
+        $("#preview").attr("src", data.location);
+      },
+      error: function(e) {
+       alert(e);
+      }
+    })
+  })
+</script>
+
+<%- include('footer.html'); -%>

@@ -1,0 +1,28 @@
+<%- include('header.html'); %>
+
+<main role="main" class="container">
+  <div class="row">
+
+    <div class="col-md-8">
+      <% for(let i=0; i< data.records.length; i++) { %>
+      <div class="mt-4 mb-5">
+        <h3><%= data.records[i].title %></h3>
+        <p class="text-black-50"><%= data.records[i].createdAt.substring(0,10) %> by <a href="#"><%= data.records[i].author %></a></p>
+        <p><%= data.records[i].intro %></p>
+        <p class="text-right"><small><a class="btn btn-xs btn-outline-secondary" href="/<%= data.records[i].category %>/<%= data.records[i].id %>">read more</a></small></p>
+      </div>
+      <% } %>
+      
+      <div class="d-flex justify-content-center flex-nowrap align-items-center mt-3 mb-5">
+        <button class="btn btn-sm btn-primary mr-3" type="button" onclick="nextPage(<%= data.page-1 %>)" <%- data.first? 'disabled':'' %>>Previous</button>
+        <input type="text" class="form-control form-control-sm text-center" style="width:60px" id="goPage" value="<%= data.page %>"><span class="pl-2 text-black-50"> / <%= data.pages %></span>
+        <button class="btn btn-sm btn-primary ml-3" type="button" onclick="nextPage(<%= Number(data.page)+1 %>)" <%- data.last? 'disabled':'' %>>Next</button>
+      </div>
+    </div>
+
+    <%- include('aside.html'); %>
+
+  </div>
+</main>
+
+<%- include('footer.html'); %>

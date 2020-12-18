@@ -1,0 +1,71 @@
+<%- include('header.html'); %>
+
+<div class="container">
+
+  <% if(banners.length > 0) { %>
+  <div id="demo" class="carousel slide mb-3" data-ride="carousel">
+    <ul class="carousel-indicators">
+      <% for(let i=0; i< banners.length; i++) { %>
+      <li data-target="#demo" data-slide-to="<%= i %>" class="<%= i==0? 'active':'' %>"></li>
+      <% } %>
+    </ul>
+    <div class="carousel-inner">
+      <% for(let i=0; i< banners.length; i++) { %>
+      <div class="carousel-item <%= i==0? 'active':'' %>">
+        <img class="d-block w-100" src="<%= banners[i].pic %>">
+      </div>
+      <% } %>
+    </div>
+  </div>
+  <% } %>
+
+  <% if(ads.length > 0) { %>
+  <div class="row mb-2">
+    <% for(let i=0; i< ads.length; i++) { %>
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <img src="<%= ads[i].pic %>" class="card-img">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><%= ads[i].title %></h5>
+              <p class="card-text"><%= ads[i].intro %></p>
+              <p class="card-text"><small><a href="/<%= ads[i].category %>/<%= ads[i].id %>">Continue reading</a></small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+  <% } %>
+  
+</div>
+
+<main role="main" class="container">
+  <div class="row">
+
+    <div class="col-md-8">
+      <% for(let i=0; i< data.records.length; i++) { %>
+      <div class="mt-4 mb-5">
+        <h3><%= data.records[i].title %></h3>
+        <p class="text-black-50"><%= data.records[i].createdAt.substring(0,10) %> by <a href="#"><%= data.records[i].author %></a></p>
+        <p><%= data.records[i].intro %></p>
+        <p class="text-right"><small><a class="btn btn-xs btn-outline-secondary" href="/<%= data.records[i].category %>/<%= data.records[i].id %>">read more</a></small></p>
+      </div>
+      <% } %>
+
+      <nav class="blog-pagination d-flex justify-content-center">
+        <a class="btn btn-outline-primary mr-3 <%- data.first? 'disabled':'' %>" href="javascript:nextPage(<%= data.page-1 %>)">Older</a>
+        <a class="btn btn-outline-primary <%- data.last? 'disabled':'' %>" href="javascript:nextPage(<%= Number(data.page)+1 %>)" tabindex="-1">Newer</a>
+      </nav>
+    </div>
+
+    <%- include('aside.html'); %>
+
+  </div>
+</main>
+
+<%- include('footer.html'); %>

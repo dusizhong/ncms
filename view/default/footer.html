@@ -1,0 +1,44 @@
+<footer class="blog-footer">
+  <p>Powered by <a href="https://ncms.dusizhong.com">NCMS</a> Copyright © <a href="https://dusizhong.com">Dusizhong.com</a></p>
+  <p><a href="#">Back to top</a></p>
+</footer>
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+  // set actived menu
+  var pathname = window.location.pathname.split('/')[1] || 'Home';
+  $('.nav a').removeClass('text-muted');
+  $('.nav a').each(function() {
+    if($(this).text() == pathname) {
+      $(this).addClass('text-primary');
+    } else $(this).addClass('text-muted');
+  })
+  // search 
+  $("#search").keydown(function(e) {
+    if(e.keyCode == 13) {
+      var keyword = $("#search").val();
+      if(keyword) {
+        window.location.href = window.location.href.split('?')[0] + '?size=100&keyword=' + keyword;
+      }
+    }
+  })
+  // next page
+  function nextPage(page) {
+    if(parseInt(page) == page) {
+      window.location.href = window.location.href.split('?')[0] + '?page=' + page;
+    }
+  }
+  // go page
+  $("#goPage").keydown(function(e) {
+    if(e.keyCode == 13) {
+      var page = $("#goPage").val();
+      if(parseInt(page) == page) {
+        window.location.href = window.location.href.split('?')[0] + '?page=' + page;
+      }
+    }
+  })
+</script>
+
+</body>
+</html>
