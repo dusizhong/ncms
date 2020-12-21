@@ -69,8 +69,8 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <form id="passwordForm" method="POST">
           <div class="modal-body">
-            <form>
               <div class="form-group">
                 <label for="oldPassword" class="col-form-label">Old Password:</label>
                 <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
@@ -79,12 +79,22 @@
                 <label for="newPassword" class="col-form-label">New Password:</label>
                 <input type="password" class="form-control" id="newPassword" name="newPassword" required>
               </div>
-            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-sm btn-primary" onclick="javascript:window.location.href='/logout'">Modify</button>
+            <button type="button" class="btn btn-sm btn-primary" onclick="modify()">Modify</button>
           </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- message modal -->
+    <div class="modal fade" id="messageModal" tabindex="-1">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">Message</div>
+          <div class="modal-body"><span>Modify password successful!</span></div>
         </div>
       </div>
     </div>
@@ -101,7 +111,6 @@
       method: 'GET',
       url: window.location.href.split("?")[0] + '/statistic',
       success: function(data) {
-        console.log(data)
         var ctx = document.getElementById('myChart');
         var myChart = new Chart(ctx, {
           type: 'line',
@@ -129,14 +138,22 @@
     })
   })
   function modify() {
+    event.preventDefault();
+    var form = new FormData($("#passwordForm")[0]);
     $.post({
       url: window.location.href.split("?")[0] + '/modifypassword',
-      data: { 'id': selId },
+      data: form,
+      cache: false,
+      processData: false,
+      contentType: false,
       success: function(data) {
-        $('#delModal').modal('hide');
-        $('#messageModal').modal('show');
-        setTimeout(function() { $('#messageModal').modal('hide') }, 2000);
-        window.location.reload();
+        if(data == 'success') {
+          $('#passwordModal').modal('hide');
+          $('#messageModal').modal('show');
+          setTimeout(function() { $('#messageModal').modal('hide') }, 2000);
+        } else {
+          alert(data);
+        }
       }
     })
   }

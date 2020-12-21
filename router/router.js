@@ -16,7 +16,7 @@ router
 	.get('/logout', controller.user.logout)
 
   .get('/admin/dashboard', controller.dashboard.home)
-  .post('/dashboard/modifypassword', controller.user.modifyPassword)
+  .post('/admin/dashboard/modifypassword', controller.user.modifyPassword)
   .get('/admin/dashboard/statistic', controller.dashboard.statistic)
 
   .get('/admin/category', controller.category.list)
