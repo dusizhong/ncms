@@ -1,37 +1,35 @@
 # NCMS
-[English](https://github.com/dusizhong/ncms#readme)  [中文版](https://github.com/dusizhong/ncms/blob/chinese/README-zh_CN.md)
+一款基于Nodejs用于构建响应式网站CMS系统.
 
-a clean Nodejs CMS for building responsive mobile-first sites.
+### 特色
+- 干净简洁、易于使用
+- 代码清晰、易于扩展
+- 独立运行、易于部署
+- 支持自定义模板
 
-### Features
-- clean and clear, easy to use
-- readable, reusable and refactorable
-- standalone, all code, db and resource in one floder
-- themes supported
-
-### Quick start
+### 快速入手
 ```
 cd ncms
 npm install
 npm start
 ```
 
-### Setup
-open config -> conf.js file, do below setup:
+### 配置
+打开项目config -> conf.js文件, 修改一下配置:
 ```
-title = 'NCMS'; //your website title
-info = 'NCMS is a clean & clear Nodejs CMS for building responsive mobile-first sites.'; //your website info
-theme = 'default'; //default theme
-secret = 'd4e3aafd1bfe9c0b0d3'; //your secret key
-host = 'http://192.168.33.112'; //your host address
-port = 3000; //default port
+title = 'NCMS'; // 站点名称
+info = '一款基于Nodejs用于构建响应式网站CMS系统.'; // 站点简介
+theme = 'default'; // 默认模板
+secret = 'd4e3aafd1bfe9c0b0d3'; // session密钥
+host = 'http://192.168.33.112'; // 域名/IP
+port = 3000; // 端口
 ```
 
-## Documentation
-NCMS is clean content management system powered by Nodejs. It use koa for async handling that aim to provide clean self-documenting code for Humans.
-NCMS use bootstrap4 and ejs to design the default template and admin UI, that allow you to build a responsive mobile-first sites running on PC, Tablet, Mobile perfectly.
-NCMS use embedded database sqlite and sequelize ORM framework to handle data, it can easy to change to an external database mysql etc if you needed.
-MCMS has category, tag, article, single-page, resources basic modules. If you are developer, you can do a deep develop to make your own NCMS.
+## 简介
+NCMS是一款基于Nodejs开发的、用于构建响应式网站的CMS系统。它使用KOA处理异步操作，实现了更佳清晰简洁、易读的代码逻辑，具有极佳扩展性。
+NCMS使用bootstrap4+ejs开发了前端模板和后端管理系统。借助Bootstrap4强大的栅格系统，使得您使用NCMS构建的网站，可在电脑、平板和手机端完美展现。
+NCMS内置sqlite3数据库，无须任何的配置便可快速部署使用。数据接口层使用了强大的Sequelize ORM框架开发，如果需要，你仅需要简单修改db.js，便可快速切换成Mysql等外部数据库。
+NCMS已具备类目（菜单）、标签、文章、单页、资源五项基本功能模块，如果你是一名开发者，你可以进行二次开发，实现更多功能。
 
 > Programming is the art of telling another human what one wants the computer to do.</br>
 > Donald Knuth
@@ -39,23 +37,21 @@ MCMS has category, tag, article, single-page, resources basic modules. If you ar
 Hope you like it:)
 
 
-### theme instruction
-#### theme setup
+### 模板说明
+#### 设置模板
 ```
-- put your theme into view floder and put assets in public floder
-- specify your theme in config -> conf.js
-- restart NCMS
+- 1、将新模板放置项目view文件夹，模板相关资源文件放置在public的assets文件夹中。
+- 2、在config -> conf.js文件中，设置你的模板。（模板目录名称）
+- 3、重启系统，完成。
 ```
-#### theme design
-before you design new theme, things You ought to know first: 
+#### 模板设计
+在制作新模板，你至少需要了解ejs模板引擎的基本使用方法，如下所示: 
 
-how to use ejs templating engine:
-
-- variables
+- 变量
 ```
 <%= foo.bar %>
 ```
-- layout
+- 引用
 ```
 <%- include('header.html'); -%>
 <h1>Title</h1>
@@ -77,7 +73,7 @@ how to use ejs templating engine:
 </ul>
 ```
 
-## Reference
+## 参考
 - Nodejs:
 Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
 See [Koa Reference](https://nodejs.org/en/).
@@ -111,8 +107,8 @@ The world's #1 JavaScript library for rich text editing.
 See [TinyMCE Reference](https://www.tiny.com/).
 
 
-## License
+## 许可
 MIT
 
-Copyright © 2020 Dusizhong.com
+版权所有 © Dusizhong.com
 
