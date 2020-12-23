@@ -1,5 +1,5 @@
 # NCMS
-[English](https://github.com/dusizhong/ncms#readme)    中文版
+[English](https://github.com/dusizhong/ncms#readme)  [中文版](https://github.com/dusizhong/ncms/blob/chinese/README-zh_CN.md)
 
 一款基于Nodejs用于构建响应式网站CMS系统.
 

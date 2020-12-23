@@ -1,5 +1,7 @@
 # NCMS
-a clean & clear Nodejs CMS for building responsive mobile-first sites.
+[English](https://github.com/dusizhong/ncms#readme)  [中文版](https://github.com/dusizhong/ncms/blob/chinese/README-zh_CN.md)
+
+a clean Nodejs CMS for building responsive mobile-first sites.
 
 ### Features
 - clean and clear, easy to use

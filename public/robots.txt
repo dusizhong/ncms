@@ -1,9 +1,8 @@
 #
 # robots.txt
-# Copyright (C) Dusizhong
+# Copyright (C) Dusizhong.com
 #
 
 User-agent: *
 
 Disallow: /admin/
-Disallow: /default/
