@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,7 +28,7 @@
         </div>
         <div class="col-4 d-flex justify-content-end align-items-center">
           <div class="form-inline my-2 my-md-0">
-            <input class="form-control form-control-sm" type="text" id="search" placeholder="search">
+            <input class="form-control form-control-sm" type="text" id="search" placeholder="搜索">
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@
 
     <div class="nav-scroller py-1 mb-2 border-top border-bottom">
       <nav class="nav d-flex justify-content-between">
-        <a class="p-2 text-primary" href="/">Home</a>
+        <a class="p-2 text-primary" href="/">首页</a>
         <% for(let i=0; i< categories.length; i++) { %>
         <a class="p-2 text-muted" href="/<%= categories[i].url? categories[i].url : categories[i].name %>"><%= categories[i].alias? categories[i].alias : categories[i].name %></a>
         <% } %>

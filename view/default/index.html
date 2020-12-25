@@ -32,7 +32,7 @@
             <div class="card-body">
               <h5 class="card-title"><%= ads[i].title %></h5>
               <p class="card-text"><%= ads[i].intro %></p>
-              <p class="card-text"><small><a href="/<%= ads[i].category %>/<%= ads[i].id %>">Continue reading</a></small></p>
+              <p class="card-text"><small><a href="/<%= ads[i].category %>/<%= ads[i].id %>">查看详情</a></small></p>
             </div>
           </div>
         </div>
@@ -58,8 +58,8 @@
       <% } %>
 
       <nav class="blog-pagination d-flex justify-content-center">
-        <a class="btn btn-outline-primary mr-3 <%- data.first? 'disabled':'' %>" href="javascript:nextPage(<%= data.page-1 %>)">Older</a>
-        <a class="btn btn-outline-primary <%- data.last? 'disabled':'' %>" href="javascript:nextPage(<%= Number(data.page)+1 %>)" tabindex="-1">Newer</a>
+        <a class="btn btn-outline-primary mr-3 <%- data.first? 'disabled':'' %>" href="javascript:nextPage(<%= data.page-1 %>)">上一页</a>
+        <a class="btn btn-outline-primary <%- data.last? 'disabled':'' %>" href="javascript:nextPage(<%= Number(data.page)+1 %>)" tabindex="-1">下一页</a>
       </nav>
     </div>
 

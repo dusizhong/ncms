@@ -6,25 +6,25 @@
     <%- include('sidebar.html'); -%>
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 mb-5">
-      <h1 class="h3 pt-3 pb-3 mb-3 border-bottom">Page Editor</h1> 
+      <h1 class="h3 pt-3 pb-3 mb-3 border-bottom">单页编辑器</h1> 
 
       <form id="editForm" action="/admin/page/editor" method="POST">
         <input type="hidden" class="form-control" id="id" name="id" value="<%=page.id%>">
         <div class="form-group">
-          <label for="title">Title *</label>
+          <label for="title">标题 *</label>
           <input type="text" class="form-control" id="title" name="title" value="<%=page.title%>" required>
         </div>
         <div class="form-group">
-          <label for="content">Content</label>
+          <label for="content">内容</label>
           <textarea id="content" name="content"><%=page.content%></textarea>
         </div>
         <div class="checkbox">
-          <label><input type="checkbox" id="enabled" name="enabled" value="1"> Enabled</label>
+          <label><input type="checkbox" id="enabled" name="enabled" value="1"> 允许</label>
           <span id="enabled1" hidden="hidden"><%=page.enabled%></span>
         </div>
         <div class="d-flex justify-content-center mb-4">
-          <button type="button" class="btn btn-light mr-3" onclick="javascript:window.location.href='/admin/page'">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-light mr-3" onclick="javascript:window.location.href='/admin/page'">取消</button>
+          <button type="submit" class="btn btn-primary">保存</button>
         </div>
       </form>
 
@@ -45,7 +45,7 @@
   // tinymce init
   tinymce.init({
     selector: '#content',
-    // language: 'zh_CN',
+    language: 'zh_CN',
     height: 1000,
     menubar: false,
     plugins: 'lists, advlist, table, link, media, image, code, preview, wordcount, autosave',

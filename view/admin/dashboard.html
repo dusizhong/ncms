@@ -7,14 +7,14 @@
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Dashboard</h1>
+        <h1 class="h3">控制台</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#passwordModal">Modify Password</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#passwordModal">修改密码</button>
           </div>
           <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
             <span data-feather="calendar"></span>
-            This Year
+            今年
           </button>
         </div>
       </div>
@@ -22,7 +22,7 @@
       <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
-        <h3>Recent Visitors</h3>
+        <h3>访问记录</h3>
         <div class="btn-toolbar">
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-sm btn-outline-secondary" onclick="nextPage(<%= records.page-1 %>)" <%- records.first? 'disabled':'' %>><span aria-hidden="true">&laquo;</span></button>
@@ -37,11 +37,11 @@
           <thead>
             <tr>
               <th class="text-center">#</th>
-              <th>Visitor</th>
-              <th>Browser</th>
-              <th>Language</th>
-              <th>Url</th>
-              <th>VisitTime</th>
+              <th>访客</th>
+              <th>信息</th>
+              <th>语言</th>
+              <th>访问链接</th>
+              <th>访问时间</th>
             </tr>
           </thead>
           <tbody>
@@ -64,7 +64,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Modify Password</h5>
+            <h5 class="modal-title">修改密码</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -72,17 +72,17 @@
           <form id="passwordForm" method="POST">
           <div class="modal-body">
               <div class="form-group">
-                <label for="oldPassword" class="col-form-label">Old Password:</label>
+                <label for="oldPassword" class="col-form-label">原密码:</label>
                 <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
               </div>
               <div class="form-group">
-                <label for="newPassword" class="col-form-label">New Password:</label>
+                <label for="newPassword" class="col-form-label">新密码:</label>
                 <input type="password" class="form-control" id="newPassword" name="newPassword" required>
               </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-sm btn-primary" onclick="modify()">Modify</button>
+            <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-sm btn-primary" onclick="modify()">确定修改</button>
           </div>
           </form>
         </div>
@@ -93,8 +93,8 @@
     <div class="modal fade" id="messageModal" tabindex="-1">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
-          <div class="modal-header">Message</div>
-          <div class="modal-body"><span>Modify password successful!</span></div>
+          <div class="modal-header">提示</div>
+          <div class="modal-body"><span>密码修改成功!</span></div>
         </div>
       </div>
     </div>

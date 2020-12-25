@@ -6,22 +6,22 @@
     <%- include('sidebar.html'); %>
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 mb-5">
-      <h1 class="h3 pt-3 pb-3 mb-3 border-bottom">Article</h1>    
+      <h1 class="h3 pt-3 pb-3 mb-3 border-bottom">文章</h1>    
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-        <button type="button" class="btn btn-sm btn-primary mb-3" onclick="javascript:window.location.href='/admin/article/editor'">Create</button>
+        <button type="button" class="btn btn-sm btn-primary mb-3" onclick="javascript:window.location.href='/admin/article/editor'">新增</button>
         <form action="/admin/article">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <select class="form-control form-control-sm" id="category" name="category">
-                <option value="">All</option>
+                <option value="">全部</option>
                 <% for(let i=0; i< categories.length; i++) { %>
                 <option value="<%= categories[i].name %>"><%= categories[i].alias? categories[i].alias : categories[i].name %></option>
                 <% } %>
               </select>
             </div>
-            <input type="text" class="form-control form-control-sm" id="keyword" name="keyword" placeholder="keyword">
+            <input type="text" class="form-control form-control-sm" id="keyword" name="keyword" placeholder="关键字">
             <div class="input-group-append">
-              <button class="btn btn-sm btn-outline-secondary" type="submit">Search</button>
+              <button class="btn btn-sm btn-outline-secondary" type="submit">搜索</button>
             </div>
           </div>
         </form>
@@ -32,13 +32,13 @@
           <thead>
             <tr class="align-items-center">
               <th scope="col" class="text-center">#</th>
-              <th scope="col">Title</th>
-              <th scope="col" class="text-center">Category</th>
-              <th scope="col" class="text-center">Recommends</th>
-              <th scope="col" class="text-center">Hits</th>
-              <th scope="col" class="text-center">Enabled</th>
-              <th scope="col">UpdatedAt</th>
-              <th scope="col">Operate</th>
+              <th scope="col">标题</th>
+              <th scope="col" class="text-center">分类</th>
+              <th scope="col" class="text-center">推荐</th>
+              <th scope="col" class="text-center">点击</th>
+              <th scope="col" class="text-center">允许</th>
+              <th scope="col">更新时间</th>
+              <th scope="col">操作</th>
             </tr>
           </thead>
           <tbody>
@@ -52,8 +52,8 @@
               <td class="text-center"><%= data.records[j].enabled %></td>
               <td class="text-nowrap"><%= data.records[j].updatedAt %></td>
               <td class="text-nowrap">
-                <button type="button" class="btn btn-xs btn-outline-danger" data-toggle="modal" data-target="#delModal" onclick="sel(<%= data.records[j].id %>)">Del</button>
-                <button type="button" class="btn btn-xs btn-outline-primary" onclick="javascript:window.location.href='/admin/article/editor?id=<%= data.records[j].id %>'">Edit</button>
+                <button type="button" class="btn btn-xs btn-outline-danger" data-toggle="modal" data-target="#delModal" onclick="sel(<%= data.records[j].id %>)">删除</button>
+                <button type="button" class="btn btn-xs btn-outline-primary" onclick="javascript:window.location.href='/admin/article/editor?id=<%= data.records[j].id %>'">编辑</button>
               </td>
             </tr>
             <% } %>
@@ -70,15 +70,15 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Warning</h5>
+          <h5 class="modal-title">警告</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
-          <span>Are you sure&hellip;</span>
+          <span>你确定吗&hellip;</span>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-sm btn-danger" onclick="del()">Delete</button>
+          <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-sm btn-danger" onclick="del()">删除</button>
         </div>
       </div>
     </div>
@@ -88,8 +88,8 @@
   <div class="modal fade" id="messageModal" tabindex="-1">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
-        <div class="modal-header">Message</div>
-        <div class="modal-body"><h5>success!</h5></div>
+        <div class="modal-header">提示</div>
+        <div class="modal-body"><h5>操作成功!</h5></div>
       </div>
     </div>
   </div>
